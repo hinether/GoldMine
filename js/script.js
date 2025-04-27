@@ -123,24 +123,26 @@ function newRound(){
 newRound()
 
 function LetsDig(){
-    if(diggingDeck.length == 0){
-        GameOver()
-        return;
-    }
-    $("#buttonSkip").attr("src","img/choiceButtons/NplusFreeSkip.png")
-    $("#buttonDig").attr("src","img/choiceButtons/NplusDig.png")
-    if(Player.AceEffect){
-        Player.AceEffect = false
-        Player.digsLeft = 0
+    if(Player.digsLeft == 0){
+        if(diggingDeck.length == 0){
+            GameOver()
+            return;
+        }
+        $("#buttonSkip").attr("src","img/choiceButtons/NplusFreeSkip.png")
+        $("#buttonDig").attr("src","img/choiceButtons/NplusDig.png")
+        if(Player.AceEffect){
+            Player.AceEffect = false
+            Player.digsLeft = 0
+            refreshDigs()
+        }
+        let chosenDig = Math.floor(Math.random()*diggingDeck.length)
+        $("#DigDiscards").html($("#DigDiscards").html()+"<img class='smol' src='img/S/"+diggingDeck[chosenDig]+".png' alt=''>")
+        Player.digsLeft = diggingDeck[chosenDig][1] == "A"?"A":LetterToNum(diggingDeck[chosenDig][1])
+        Player.AceEffect = (Player.digsLeft == "A")
+        diggingDeck.splice(chosenDig,1)
         refreshDigs()
+        $("#DigDeck").html('<div style="text-align: center;transform: translate(0px,10px);">Dig Deck ('+diggingDeck.length+')</div>')
     }
-    let chosenDig = Math.floor(Math.random()*diggingDeck.length)
-    $("#DigDiscards").html($("#DigDiscards").html()+"<img class='smol' src='img/S/"+diggingDeck[chosenDig]+".png' alt=''>")
-    Player.digsLeft = diggingDeck[chosenDig][1] == "A"?"A":LetterToNum(diggingDeck[chosenDig][1])
-    Player.AceEffect = (Player.digsLeft == "A")
-    diggingDeck.splice(chosenDig,1)
-    refreshDigs()
-    $("#DigDeck").html('<div style="text-align: center;transform: translate(0px,10px);">Dig Deck ('+diggingDeck.length+')</div>')
 }
 
 $("#buttonSkip").on("click",function(){
