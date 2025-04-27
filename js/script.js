@@ -123,6 +123,11 @@ function newRound(){
 newRound()
 
 function LetsDig(){
+    if(Player.AceEffect){
+        Player.AceEffect = false
+        Player.digsLeft = 0
+        refreshDigs()
+    }
     if(Player.digsLeft == 0){
         if(diggingDeck.length == 0){
             GameOver()
@@ -130,11 +135,7 @@ function LetsDig(){
         }
         $("#buttonSkip").attr("src","img/choiceButtons/NplusFreeSkip.png")
         $("#buttonDig").attr("src","img/choiceButtons/NplusDig.png")
-        if(Player.AceEffect){
-            Player.AceEffect = false
-            Player.digsLeft = 0
-            refreshDigs()
-        }
+
         let chosenDig = Math.floor(Math.random()*diggingDeck.length)
         $("#DigDiscards").html($("#DigDiscards").html()+"<img class='smol' src='img/S/"+diggingDeck[chosenDig]+".png' alt=''>")
         Player.digsLeft = diggingDeck[chosenDig][1] == "A"?"A":LetterToNum(diggingDeck[chosenDig][1])
