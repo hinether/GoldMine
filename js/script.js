@@ -64,6 +64,17 @@ function LetterToNum(L){
     }
 }
 
+function allEmpty(){
+    let output = true
+    $(".digsite").each(function(){
+        for(i=1;i<4;i++){
+            if($(this).hasClass("stack-"+i)){
+                output = false
+            }
+        }
+    })
+    return output
+}
 
 function DiscardFromDigsite(id){
     let suit = (Board[id[0]][id[1]])[0][0]
@@ -147,6 +158,10 @@ function LetsDig(){
 }
 
 $("#buttonSkip").on("click",function(){
+    if(allEmpty()){
+        alert("congrats on clearing this whole digsite")
+        newRound()
+    }
     if(((Player.digsLeft == 0)||(Player.AceEffect))&&(!Player.busy)&&((Player.skips > 0) || heDug)){
         if($(this).attr("src") == "img/choiceButtons/plusSkip.png"){
             Player.Totalscore -=20
