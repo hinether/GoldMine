@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GoldMine</title>
+</head>
+<body style="background-image: url(img/Background.png); background-size: cover; background-repeat: no-repeat; background-attachment: fixed; background-position: center;">
+  <script src="js/jquery-3.6.1.min.js"></script>
+  <script src="js/script.js"></script>
+    <style type="text/css">
+        #DigDeck{
+          background-image: url(img/XDirt/XD.png);
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: fixed;
+        }
+        #Help{
+          background-image: url(img/HowPlay.png);
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: fixed;
+        }
+        .smol{
+          height: 50%;
+          width: auto;
+        }
+        #dialog_box{
+          background-image: url(img/Dialog.png);
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: 100% 90%;
+        }
+        .clickable{
+          width: 128px;
+          height: 128px;
+        }
+        .stack-3{
+          background-image: url(img/XDirt/X3.png);
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: fixed;
+        }
+        .stack-2{
+          background-image: url(img/XDirt/X2.png);
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: fixed;
+        }
+        .stack-1{
+          background-image: url(img/XDirt/X1.png);
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: fixed;
+        }
+        .stack-0{
+          background-image: url(img/XDirt/X0.png);
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: fixed;
+        }
+        .face-default{
+          background-image: url(img/Digger\(Default32\).gif);
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: fixed;
+        }
+        .clickable:hover{
+          background-color: rgba(0, 255, 255, 0.574);
+          opacity: 0.7;
+          border-radius: 20%;
+        }
+        .tg  {border-collapse:collapse;border-spacing:0;margin:0px auto;}
+        .tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+          overflow:hidden;padding:10px 5px;word-break:normal;}
+        .tg .tg-0pky{border-color:rgba(255, 255, 255, 0.504);text-align:left;vertical-align:top;font-weight: bold; color: aliceblue;}
+        </style>
+        <div class="tg-wrap"><table class="tg" style="background-color: rgba(0, 0, 0, 0.192); width: 90vw; height: 90vh;"><tbody>
+          
+          <tr>
+            <td id="Help" class="tg-0pky clickable"></td>
+            <td name="theSix" id="SixShown" class="tg-0pky" style="height: 128px;"></td>
+            <td class="tg-0pky" style="
+             background-color: rgba(0, 0, 0, 0.353);
+              text-align: center; font-weight: bolder; font-size: large; color: green; border-radius:10%;
+               text-shadow: -1px -1px 0 #ffffff, -1px -1px 0 #ffffff, 1px -1px 0 #ffffff, -1px 1px 0 #ffffff, 1px 1px 0 #ffffff;">
+               Round Score: <p id="roundScore" style="word-wrap: break-word; width: 128px; height: 40px;">10</p>
+            </td>
+            <td class="tg-0pky" colspan="2"></td>
+            <td class="tg-0pky" style="
+            background-color: rgba(0, 0, 0, 0.353);
+             text-align: center; font-weight: bolder; font-size: large; color: rgb(128, 0, 0); border-radius:10%;
+              text-shadow: -1px -1px 0 #ffffff, -1px -1px 0 #ffffff, 1px -1px 0 #ffffff, -1px 1px 0 #ffffff, 1px 1px 0 #ffffff;">
+              Left to Dig: <p id="digRemaining" style="word-wrap: break-word; width: 128px; height: 40px;">0</p></td>
+          </tr>
+          <tr>
+            <td id="DigDeck" class="tg-0pky clickable">
+              <div style="text-align: center;transform: translate(0px,10px);">Dig Deck (10)</div>
+            </td>
+            <td id="DigDiscards" class="tg-0pky" style="height: 128px;"></td>
+            <td id="grid00" class="digsite tg-0pky clickable stack-3"></td>
+            <td id="grid01" class="digsite tg-0pky clickable stack-3"></td>
+            <td id="grid02" class="digsite tg-0pky clickable stack-3"></td>
+            <td id="grid03" class="digsite tg-0pky clickable stack-3"></td>
+          </tr>
+          <tr>
+            <td class="tg-0pky" style="text-wrap-mode:wrap;
+            background-color: rgba(0, 0, 0, 0.353);
+             text-align: center; font-weight: bolder; font-size: large; color: green; border-radius:10%;
+              text-shadow: -1px -1px 0 #ffffff, -1px -1px 0 #ffffff, 1px -1px 0 #ffffff, -1px 1px 0 #ffffff, 1px 1px 0 #ffffff;">
+              Total Score: <p id="totalScore" style="word-wrap: break-word; width: 128px; height: 40px;">0</p></td>
+            <td id="ScoreDiscard" class="tg-0pky" style="height: 128px;">Discards (round score)</td>
+            <td id="grid10" class="digsite tg-0pky clickable stack-3"></td>
+            <td id="grid11" class="digsite tg-0pky clickable stack-3"></td>
+            <td id="grid12" class="digsite tg-0pky clickable stack-3"></td>
+            <td id="grid13" class="digsite tg-0pky clickable stack-3"></td>
+          </tr>
+          <tr>
+            <td class="tg-0pky face-default"></td>
+            <td id="dialog_box" class="tg-0pky" style="color: black;"><p style="font-size: large; margin-left: 10%; margin-top: 3%;">*Digging noises*</p></td>
+            <td id="grid20" class="digsite tg-0pky clickable stack-3"></td>
+            <td id="grid21" class="digsite tg-0pky clickable stack-3"></td>
+            <td id="grid22" class="digsite tg-0pky clickable stack-3"></td>
+            <td id="grid23" class="digsite tg-0pky clickable stack-3"></td>
+          </tr>
+          <tr>
+            <td id="HealthPoints" class="tg-0pky">HP</td>
+            <td id="HazardDiscard" class="tg-0pky" style="height: 128px;">Discards (bombs n shields used)</td>
+            <td class="tg-0pky"><img id="buttonScore" class="clickable" style="max-width: 100%; height: auto;" src="img/choiceButtons/plusScore.png" alt="" srcset=""> <img id="buttonDig" class="clickable" style="max-width: 100%; height: auto;" src="img/choiceButtons/plusDig.png" alt="" srcset=""></td>
+            <td id="choiceSlot" class="tg-0pky" style="height: 128px; align-content: center; text-align: center;" colspan="2"> </td>
+            <td class="tg-0pky"><img id="buttonShield" class="clickable" style="max-width: 100%; height: auto;" src="img/choiceButtons/plusShield.png" alt="" srcset=""> <img id="buttonSkip" class="clickable" style="max-width: 100%; height: auto;" src="img/choiceButtons/plusSkip.png" alt="" srcset=""></td>
+          </tr>
+          
+        </tbody></table></div>
+
+
+</body>
+</html>
