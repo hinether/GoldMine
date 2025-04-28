@@ -12,6 +12,36 @@ let Player = {
     roundsPlayed: 0
 }
 
+let languages =  ["EN","ESP"]
+let lang = 0
+
+let traductor = [{
+    id: "English",
+    HP: "HP: ",
+    Shield: "Shield: ",
+    skips: "'Digging-Free' Skips left: ",
+    round: "Round: ",
+    digsLeft: "Left to Dig: ",
+    RoundScore: "Round Score: ",
+    Totalscore: "Total Score: ",
+    digdeck: "Dig Deck",
+    digsite: "The Digsite",
+    HowToPlay: "I still won't code a tutorial sequence for this, uwa... D: \n Welcome to 'GoldMine' or whatever I end up calling this.\nThe goal of the game is to draw all the cards from your 'Dig Deck' which is composed of A-10 of spades.\n you can click the deck or the 'Get Digging' button to draw a card from it after which you MUST 'excavate' cards from the board on the right (a.k.a: 'the digsite').\n The six cards on the top left AREN'T on the digsite you can use this as a way to measure how safe the current digsite is.\n The card you excavate will affect you according to its suit... \n Diamonds immediately get added to your score equal to their rank value. \n Clubs deal damage equal to their rank value. \n Spades (J, Q & K) add 1, 2 & 3 to you digging requirement, respecively. \n Hearts can either be used to score DOUBLE their rank value or as shields which will protect you from damage (you may only have one shield at a time). \n Whenever you draw the Ace of Spades from your Dig Deck you may excavate any amount of cards, but at least one. \n Lastly, the GFTO button skips the current digsite you can either pay 20 points or draw one card from the dig deck to use it, granted, you may only use the payment option up to 3 times. \n I'm still considering balance changes to the game so feel free to suggest them to me. D:"
+},{
+    id: "Español",
+    HP: "PV: ",
+    Shield: "Escudo: ",
+    skips: "Salteos 'Pre-Excavativos' restantes: ",
+    round: "Ronda: ",
+    digsLeft: "Faltan Excavar: ",
+    RoundScore: "Puntos de la Ronda: ",
+    Totalscore: "Puntos Totales: ",
+    digdeck: "Mazo de Exc.",
+    digsite: "El Sitio de Excavacion",
+    HowToPlay: "I still won't code a tutorial sequence for this, uwa... D: \n Welcome to 'GoldMine' or whatever I end up calling this.\nThe goal of the game is to draw all the cards from your 'Dig Deck' which is composed of A-10 of spades.\n you can click the deck or the 'Get Digging' button to draw a card from it after which you MUST 'excavate' cards from the board on the right (a.k.a: 'the digsite').\n The six cards on the top left AREN'T on the digsite you can use this as a way to measure how safe the current digsite is.\n The card you excavate will affect you according to its suit... \n Diamonds immediately get added to your score equal to their rank value. \n Clubs deal damage equal to their rank value. \n Spades (J, Q & K) add 1, 2 & 3 to you digging requirement, respecively. \n Hearts can either be used to score DOUBLE their rank value or as shields which will protect you from damage (you may only have one shield at a time). \n Whenever you draw the Ace of Spades from your Dig Deck you may excavate any amount of cards, but at least one. \n Lastly, the GFTO button skips the current digsite you can either pay 20 points or draw one card from the dig deck to use it, granted, you may only use the payment option up to 3 times. \n I'm still considering balance changes to the game so feel free to suggest them to me. D:"
+}]
+
+console.log(traductor[0].HP,traductor[1].HP)
 
 var Board = [
     [[],[],[],[]],
@@ -31,7 +61,12 @@ var diggingDeck = ['SA','S2','S3','S4','S5','S6','S7','S8','S9','ST']
 
 function GameOver(){
     Player.Totalscore += Player.RoundScore
-    alert("You "+(Player.health > 0 ? "[MADE IT OUT ALIVE]":"[PAINFULLY DIED]")+" "+(Player.roundsPlayed <= 3?"[LUDICROUSLY FAST]":(Player.roundsPlayed <= 10 ? "[AT A VERY HUMAN PACE]":"[AGONIZINGLY SLOW]"))+"\nwhile "+(Player.Totalscore <0 ? "[SOMEHOW COSTING US "+Player.Totalscore+" 'POINTS']" : (Player.Totalscore <= 200 ? "[SCORING "+Player.Totalscore+" 'POINTS']":"[GIVING US "+Player.Totalscore+" TONS OF GOLD]")+"\n\n (the site will reload after pressing ok)"))
+    if(Player.health > 0){Player.Totalscore += 200}
+    let GOMessage = [
+        "You "+(Player.health > 0 ? "[MADE IT OUT ALIVE]":"[PAINFULLY DIED]")+" "+(Player.roundsPlayed <= 3?"[LUDICROUSLY FAST]":(Player.roundsPlayed <= 10 ? "[AT A VERY HUMAN PACE]":"[AGONIZINGLY SLOW]"))+"\nwhile "+(Player.Totalscore <0 ? "[SOMEHOW COSTING US "+Player.Totalscore+" 'POINTS']" : (Player.Totalscore <= 200 ? "[SCORING "+Player.Totalscore+" 'POINTS']":"[GIVING US "+Player.Totalscore+" TONS OF GOLD]"))+"\n\n (the site will reload after pressing ok)",
+        "Vos "+(Player.health > 0 ? "[SOBREVIVISTE]":"[DOLOROSAMENTE MORISTE]")+" "+(Player.roundsPlayed <= 3?"[RIDICULAMENTE RAPIDO]":(Player.roundsPlayed <= 10 ? "[A UN PASO MUY HUMANO]":"[AGONIZANTEMENTE LENTO]"))+"\nmientras "+(Player.Totalscore <0 ? "[DE ALGUNA MANERA COSTANDONOS "+Player.Totalscore+" 'PUNTOS']" : (Player.Totalscore <= 200 ? "[CONSIGUIENDO "+Player.Totalscore+" 'PUNTOS']":"[DANDONOS "+Player.Totalscore+" TONELADAS DE ORO]"))+"\n\n (el sitio se recargara despues de apretar ok)"
+    ]
+    alert(GOMessage[lang])
     location.reload()
 }
 
@@ -97,14 +132,27 @@ function refreshDigs(){
     $('#digRemaining').html(Player.digsLeft)
 }
 function refreshHP(){
-    $('#HealthPoints').html("HP: "+Player.health+"<br>Shield: "+Player.shield)
+    $('#HealthPoints').html((traductor[lang].HP + Player.health)+"<br>"+(traductor[lang].Shield+Player.shield))
     if(Player.health <= 0){
         GameOver()
 
     }
 }
 function refreshSkips(){
-    $('#dialog_box>p').html("'Digging-Free' Skips left: "+Player.skips+"<br>Round: "+Player.roundsPlayed)
+    $('#dialog_box>p').html((traductor[lang].skips + Player.skips)+"<br>"+(traductor[lang].round+Player.roundsPlayed))
+}
+
+function changeLang(str){
+    lang = languages.indexOf(str)
+    $("#DigDeck").html('<div style="text-align: center;transform: translate(0px,10px);">'+traductor[lang].digdeck+' ('+diggingDeck.length+')</div>')
+    $("#totalScoretext").html(traductor[lang].Totalscore+"<p id='totalScore' style='word-wrap: break-word; width: 128px; height: 40px;'>0</p>")
+    $("#roundScoretext").html(traductor[lang].RoundScore+"<p id='roundScore' style='word-wrap: break-word; width: 128px; height: 40px;'>0</p>")
+    $("#digRemainingtext").html(traductor[lang].digsLeft+"<p id='digRemaining' style='word-wrap: break-word; width: 128px; height: 40px;'>0</p>")
+    $("#boardname").html(traductor[lang].digsite)
+    refreshDigs
+    refreshScore
+    refreshHP()
+    refreshSkips()
 }
 
 function newRound(){
@@ -156,7 +204,7 @@ function LetsDig(){
         Player.AceEffect = (Player.digsLeft == "A")
         diggingDeck.splice(chosenDig,1)
         refreshDigs()
-        $("#DigDeck").html('<div style="text-align: center;transform: translate(0px,10px);">Dig Deck ('+diggingDeck.length+')</div>')
+        $("#DigDeck").html('<div style="text-align: center;transform: translate(0px,10px);">'+traductor[lang].digdeck+' ('+diggingDeck.length+')</div>')
     }
 }
 
@@ -224,6 +272,11 @@ $("#buttonShield").on("click",function(){
 
 $("#DigDeck").on("click",LetsDig)
 $("#buttonDig").on("click",LetsDig)
+
+$("#choiceLanguages").change(function(){
+    console.log($(this).val())
+    changeLang($(this).val())
+})
 
 $(".clickable.digsite").on("click",function(){
     if((Player.digsLeft > 0 || Player.AceEffect)&&!Player.busy) {

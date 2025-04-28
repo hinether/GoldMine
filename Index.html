@@ -80,18 +80,18 @@
           <tr>
             <td id="Help" class="tg-0pky clickable"></td>
             <td name="theSix" id="SixShown" class="tg-0pky" style="height: 128px;"></td>
-            <td class="tg-0pky" style="
+            <td id="roundScoretext" class="tg-0pky" style="
              background-color: rgba(0, 0, 0, 0.353);
               text-align: center; font-weight: bolder; font-size: large; color: green; border-radius:10%;
                text-shadow: -1px -1px 0 #ffffff, -1px -1px 0 #ffffff, 1px -1px 0 #ffffff, -1px 1px 0 #ffffff, 1px 1px 0 #ffffff;">
-               Round Score: <p id="roundScore" style="word-wrap: break-word; width: 128px; height: 40px;">10</p>
+               Round Score: <p id='roundScore' style='word-wrap: break-word; width: 128px; height: 40px;'>10</p>
             </td>
-            <td style="text-align: center;" class="tg-0pky" colspan="2">The Digsite</td>
-            <td class="tg-0pky" style="
+            <td id="boardname" style="text-align: center;" class="tg-0pky" colspan="2">The Digsite</td>
+            <td id="digRemainingtext" class="tg-0pky" style="
             background-color: rgba(0, 0, 0, 0.353);
              text-align: center; font-weight: bolder; font-size: large; color: rgb(128, 0, 0); border-radius:10%;
               text-shadow: -1px -1px 0 #ffffff, -1px -1px 0 #ffffff, 1px -1px 0 #ffffff, -1px 1px 0 #ffffff, 1px 1px 0 #ffffff;">
-              Left to Dig: <p id="digRemaining" style="word-wrap: break-word; width: 128px; height: 40px;">0</p></td>
+              Left to Dig: <p id='digRemaining' style='word-wrap: break-word; width: 128px; height: 40px;'>0</p></td>
           </tr>
           <tr>
             <td id="DigDeck" class="tg-0pky clickable">
@@ -104,7 +104,7 @@
             <td id="grid03" class="digsite tg-0pky clickable stack-3"></td>
           </tr>
           <tr>
-            <td class="tg-0pky" style="text-wrap-mode:wrap;
+            <td id="totalScoretext" class="tg-0pky" style="text-wrap-mode:wrap;
             background-color: rgba(0, 0, 0, 0.353);
              text-align: center; font-weight: bolder; font-size: large; color: green; border-radius:10%;
               text-shadow: -1px -1px 0 #ffffff, -1px -1px 0 #ffffff, 1px -1px 0 #ffffff, -1px 1px 0 #ffffff, 1px 1px 0 #ffffff;">
@@ -124,7 +124,7 @@
             <td id="grid23" class="digsite tg-0pky clickable stack-3"></td>
           </tr>
           <tr>
-            <td id="HealthPoints" class="tg-0pky">HP</td>
+            <td class="tg-0pky"> <p id="HealthPoints"></p> <br> <select name='languages' id='choiceLanguages'> <option value='EN'>EN</option> <option value='ESP'>ESP</option> </select> </td>
             <td id="HazardDiscard" class="tg-0pky" style="height: 128px;">Discards (bombs n shields used)</td>
             <td class="tg-0pky"><img id="buttonScore" class="clickable" style="min-width: 50%; max-width: 100%; height: auto;" src="img/choiceButtons/plusScore.png" alt="" srcset=""> <img id="buttonDig" class="clickable" style="min-width: 50%; max-width: 100%; height: auto;" src="img/choiceButtons/plusDig.png" alt="" srcset=""></td>
             <td id="choiceSlot" class="tg-0pky" style="height: 128px; align-content: center; text-align: center;" colspan="2"> </td>
