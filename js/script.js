@@ -114,7 +114,9 @@ function newRound(){
     heDug = false
     refreshSkips()
     Player.AceEffect = false
-    Player.digsLeft = 0
+    if(!(allEmpty())){
+        Player.digsLeft = 0
+    }
     refreshDigs()
     Player.Totalscore += Player.RoundScore
     Player.RoundScore = 0
@@ -160,7 +162,7 @@ function LetsDig(){
 
 $("#buttonSkip").on("click",function(){
     if(allEmpty()){
-        alert("congrats on clearing this whole digsite")
+        alert("Congrats on clearing this whole digsite \nGet ready for the next one")
         newRound()
     }
     if(((Player.digsLeft == 0)||(Player.AceEffect))&&(!Player.busy)&&((Player.skips > 0) || heDug)){
@@ -189,6 +191,9 @@ $("#buttonScore").on("click",function(){
             $("#buttonDig").attr("src","img/choiceButtons/plusDig.png")
             $("#buttonSkip").attr("src","img/choiceButtons/plusFreeSkip.png")
         }
+        if(allEmpty()){
+            $("#buttonSkip").attr("src","img/choiceButtons/plusFreeSkip.png")
+        }
         refreshDigs()
     }
 })
@@ -208,6 +213,9 @@ $("#buttonShield").on("click",function(){
         if((Player.digsLeft == 0 || Player.AceEffect)&&!Player.busy){
             heDug = true
             $("#buttonDig").attr("src","img/choiceButtons/plusDig.png")
+            $("#buttonSkip").attr("src","img/choiceButtons/plusFreeSkip.png")
+        }
+        if(allEmpty()){
             $("#buttonSkip").attr("src","img/choiceButtons/plusFreeSkip.png")
         }
         refreshDigs()
@@ -237,6 +245,9 @@ $(".clickable.digsite").on("click",function(){
             if((Player.digsLeft == 0 || Player.AceEffect)&&!Player.busy){
                 heDug = true
                 $("#buttonDig").attr("src","img/choiceButtons/plusDig.png")
+                $("#buttonSkip").attr("src","img/choiceButtons/plusFreeSkip.png")
+            }
+            if(allEmpty()){
                 $("#buttonSkip").attr("src","img/choiceButtons/plusFreeSkip.png")
             }
             refreshDigs()
