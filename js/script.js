@@ -31,7 +31,8 @@ var diggingDeck = ['SA','S2','S3','S4','S5','S6','S7','S8','S9','ST']
 
 function GameOver(){
     Player.Totalscore += Player.RoundScore
-    alert("You "+(Player.health > 0 ? "[MADE IT OUT ALIVE]":"[PAINFULLY DIED]")+" "+(Player.roundsPlayed <= 3?"[LUDICROUSLY FAST]":(Player.roundsPlayed <= 10 ? "[AT A VERY HUMAN PACE]":"[AGONIZINGLY SLOW]"))+" while "+(Player.Totalscore <0 ? "[SOMEHOW COSTING US "+Player.Totalscore+" 'POINTS']" : (Player.Totalscore <= 200 ? "[SCORING "+Player.Totalscore+" 'POINTS']":"[GIVING US "+Player.Totalscore+" TONS OF GOLD]")))
+    alert("You "+(Player.health > 0 ? "[MADE IT OUT ALIVE]":"[PAINFULLY DIED]")+" "+(Player.roundsPlayed <= 3?"[LUDICROUSLY FAST]":(Player.roundsPlayed <= 10 ? "[AT A VERY HUMAN PACE]":"[AGONIZINGLY SLOW]"))+"\nwhile "+(Player.Totalscore <0 ? "[SOMEHOW COSTING US "+Player.Totalscore+" 'POINTS']" : (Player.Totalscore <= 200 ? "[SCORING "+Player.Totalscore+" 'POINTS']":"[GIVING US "+Player.Totalscore+" TONS OF GOLD]")+"\n\n (the site will reload after pressing ok)"))
+    location.reload()
 }
 
 function RepartirCartas(){
