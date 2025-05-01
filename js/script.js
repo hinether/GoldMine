@@ -191,27 +191,28 @@ function LetsDig(){
         alert(traductor[lang].AllClear)
         Player.Totalscore += 50
         newRound()
-    }
-    if(Player.AceEffect){
-        Player.AceEffect = false
-        Player.digsLeft = 0
-        refreshDigs()
-    }
-    if(Player.digsLeft == 0){
-        if(diggingDeck.length == 0){
-            GameOver()
-            return;
+    }else{
+        if(Player.AceEffect){
+            Player.AceEffect = false
+            Player.digsLeft = 0
+            refreshDigs()
         }
-        $("#buttonSkip").attr("src","img/choiceButtons/NplusFreeSkip.png")
-        $("#buttonDig").attr("src","img/choiceButtons/NplusDig.png")
-
-        let chosenDig = Math.floor(Math.random()*diggingDeck.length)
-        $("#DigDiscards").html($("#DigDiscards").html()+"<img class='smol' src='img/S/"+diggingDeck[chosenDig]+".png' alt=''>")
-        Player.digsLeft = diggingDeck[chosenDig][1] == "A"?"A":LetterToNum(diggingDeck[chosenDig][1])
-        Player.AceEffect = (Player.digsLeft == "A")
-        diggingDeck.splice(chosenDig,1)
-        refreshDigs()
-        $("#DigDeck").html('<div style="text-align: center;transform: translate(0px,10px);">'+traductor[lang].digdeck+' ('+diggingDeck.length+')</div>')
+        if(Player.digsLeft == 0){
+            if(diggingDeck.length == 0){
+                GameOver()
+                return;
+            }
+            $("#buttonSkip").attr("src","img/choiceButtons/NplusFreeSkip.png")
+            $("#buttonDig").attr("src","img/choiceButtons/NplusDig.png")
+    
+            let chosenDig = Math.floor(Math.random()*diggingDeck.length)
+            $("#DigDiscards").html($("#DigDiscards").html()+"<img class='smol' src='img/S/"+diggingDeck[chosenDig]+".png' alt=''>")
+            Player.digsLeft = diggingDeck[chosenDig][1] == "A"?"A":LetterToNum(diggingDeck[chosenDig][1])
+            Player.AceEffect = (Player.digsLeft == "A")
+            diggingDeck.splice(chosenDig,1)
+            refreshDigs()
+            $("#DigDeck").html('<div style="text-align: center;transform: translate(0px,10px);">'+traductor[lang].digdeck+' ('+diggingDeck.length+')</div>')
+        }
     }
 }
 
@@ -220,14 +221,16 @@ $("#buttonSkip").on("click",function(){
         alert(traductor[lang].AllClear)
         Player.Totalscore += 50
         newRound()
-    }
-    if(((Player.digsLeft == 0)||(Player.AceEffect))&&(!Player.busy)&&((Player.skips > 0) || heDug)){
-        if($(this).attr("src") == "img/choiceButtons/plusSkip.png"){
-            Player.Totalscore -=20
-            Player.skips--
+    }else{
+        if(((Player.digsLeft == 0)||(Player.AceEffect))&&(!Player.busy)&&((Player.skips > 0) || heDug)){
+            if($(this).attr("src") == "img/choiceButtons/plusSkip.png"){
+                Player.Totalscore -=20
+                Player.skips--
+            }
+            newRound()
         }
-        newRound()
     }
+
 })
 
 $("#buttonScore").on("click",function(){
